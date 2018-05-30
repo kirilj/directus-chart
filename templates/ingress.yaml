@@ -1,38 +1,23 @@
-{{- if .Values.ingress.enabled -}}
-{{- $fullName := include "directus.fullname" . -}}
-{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  namespace: {{ .Values.directusNamespace }}
+  name: {{ template "directus.fullname" . }}
   labels:
     app: {{ template "directus.name" . }}
     chart: {{ template "directus.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-{{- with .Values.ingress.annotations }}
-  annotations:
-{{ toYaml . | indent 4 }}
-{{- end }}
 spec:
-{{- if .Values.ingress.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . }}
-      {{- end }}
-      secretName: {{ .secretName }}
-  {{- end }}
-{{- end }}
+      - {{ .Values.directusHost }}
+      secretName: {{ template "directus.fullname" . }}-tls
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
+    - {{ .Values.directusHost }}
       http:
         paths:
-          - path: {{ $ingressPath }}
+          - path: /
             backend:
-              serviceName: {{ $fullName }}
+              serviceName: {{ template "directus.fullname" . }}
               servicePort: http
-  {{- end }}
-{{- end }}
