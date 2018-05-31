@@ -1,0 +1,10 @@
+{{- if .Values.directus.configMap.create -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
+  namespace: {{ default (template "directus.fullname" .) .Values.directus.namespace }}
+data:
+  mysql_user: directus # TODO:
+  mysql_database: directus
+{{- end }}

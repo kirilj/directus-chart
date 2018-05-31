@@ -1,4 +1,19 @@
-directusImage: getdirectus/directus:6.4
-directusHost: directus.local
-directusNamespace: directus
-directusServiceAccount: directus
+directus:
+  image: getdirectus/directus:6.4
+  # namespace: directus
+  # serviceAccount: directus
+  role:
+    create: true
+    # name: directus
+  configMap:
+    create: true
+    # name: directus
+  secret:
+    create: true
+    # name: directus
+
+
+
+  # Change required:
+  hosts:
+    - directus.local

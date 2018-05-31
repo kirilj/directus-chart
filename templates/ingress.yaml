@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  namespace: {{ .Values.directusNamespace }}
+  namespace: {{ default (template "directus.fullname" .) .Values.directus.namespace }}
   name: {{ template "directus.fullname" . }}
   labels:
     app: {{ template "directus.name" . }}
@@ -10,14 +10,18 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   tls:
+  {{- range .Values.direcuts.hosts }}
     - hosts:
-      - {{ .Values.directusHost }}
-      secretName: {{ template "directus.fullname" . }}-tls
+        - {{ . }}
+      secretName: {{ . | replace "." "-" }}-tls
+  {{- end }}
   rules:
-    - {{ .Values.directusHost }}
+  {{- range .Values.directus.hosts }}
+    - {{ . }}
       http:
         paths:
           - path: /
             backend:
               serviceName: {{ template "directus.fullname" . }}
               servicePort: http
+  {{- end }}
