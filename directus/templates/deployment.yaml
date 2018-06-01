@@ -37,36 +37,21 @@ spec:
               path: /
               port: http
           env:
+            - name: MYSQL_ENV_MYSQL_DATABASE
+              value: {{ .Values.directus.db.name }}
             - name: MYSQL_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
-                  key: mysql_user
+              value: {{ .Values.directus.db.user }}
+            - name: MYSQL_ENV_MYSQL_USER
+              value: {{ .Values.directus.db.user }}
+            - name: MYSQL_PORT_3306_TCP_ADDR
+              value: {{ .Values.directus.db.host }}
+            - name: MYSQL_PORT_3306_TCP_PORT
+              value: {{ .Values.directus.db.port }}
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: name: {{ default (template "directus.fullname" .) .Values.directus.secret.name }}
                   key: mysql_password
-            - name: MYSQL_ENV_MYSQL_DATABASE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
-                  key: mysql_database
-            - name: MYSQL_PORT_3306_TCP_ADDR
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
-                  key: mysql_host
-            - name: MYSQL_PORT_3306_TCP_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
-                  key: mysql_port
-            - name: MYSQL_ENV_MYSQL_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
-                  key: mysql_user
             - name: MYSQL_ENV_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:

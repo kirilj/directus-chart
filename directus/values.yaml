@@ -5,14 +5,14 @@ directus:
   role:
     create: true
     # name: directus
-  configMap:
-    create: true
-    # name: directus
   secret:
     create: true
     # name: directus
-
-
+  db:
+    name: directus
+    user: directus
+    host: mysql.mysql.svc.cluster.local
+    port: "3306"
 
   # Change required:
   hosts:

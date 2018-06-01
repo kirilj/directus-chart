@@ -11,9 +11,8 @@ metadata:
     heritage: {{ .Release.Service }}
 rules:
   - apiGroups: [""]
-    resources: ["configmaps", "secrets"]
+    resources: ["secrets"]
     resourceNames:
-      - {{ default (template "directus.fullname" .) .Values.directus.configMap.name }}
       - {{ default (template "directus.fullname" .) .Values.directus.secret.name }}
     verbs: ["get"]
 {{- end }}
