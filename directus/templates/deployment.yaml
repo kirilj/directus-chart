@@ -50,7 +50,7 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: name: {{ default (include "directus.fullname" .) .Values.directus.secret.name }}
+                  name: {{ default (include "directus.fullname" .) .Values.directus.secret.name }}
                   key: mysql_password
             - name: MYSQL_ENV_MYSQL_PASSWORD
               valueFrom:

@@ -1,8 +1,9 @@
+{{- $fullname := include "directus.fullname" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  namespace: {{ default (include "directus.fullname" .) .Values.directus.namespace }}
-  name: {{ template "directus.fullname" . }}
+  namespace: {{ default $fullname .Values.directus.namespace }}
+  name: {{ $fullname }}
   labels:
     app: {{ template "directus.name" . }}
     chart: {{ template "directus.chart" . }}
@@ -10,11 +11,11 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   tls:
-  {{- range .Values.directus.hosts }}
     - hosts:
+      {{- range .Values.directus.hosts }}
         - {{ . }}
-      secretName: {{ . | replace "." "-" }}-tls
-  {{- end }}
+      {{- end -}}
+      secretName: {{ $fullname }}-tls
   rules:
   {{- range .Values.directus.hosts }}
     - {{ . }}
@@ -22,6 +23,6 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: {{ template "directus.fullname" . }}
+              serviceName: {{ $fullname }}
               servicePort: http
   {{- end }}
