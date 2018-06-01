@@ -3,7 +3,7 @@
 
 # Requirements
 
-[Directus](https://getdirectus.com/) requires MySQL (or maybe MariaDB) but this
+Directus requires MySQL (or maybe MariaDB) but this
 chart doesn't set this up for you since there is already a stable chart for
 [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql).
 
@@ -22,3 +22,13 @@ You can then customize the config values as necessary.
 ```console
 helm install --name <release name> -f <config file> --set directus.db.pass=somepass ./directus
 ```
+
+# Upgrading
+
+```console
+helm upgrade <release name> ./directus -f <config file> --set directus.db.pass=somepass
+```
+
+&nbsp;
+
+Created by [Ian Walter](http://iankwalter.com).
