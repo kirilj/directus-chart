@@ -14,11 +14,11 @@ spec:
     - hosts:
       {{- range .Values.directus.hosts }}
         - {{ . }}
-      {{- end -}}
+      {{- end }}
       secretName: {{ $fullname }}-tls
   rules:
   {{- range .Values.directus.hosts }}
-    - {{ . }}
+    - host: {{ . }}
       http:
         paths:
           - path: /
