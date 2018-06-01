@@ -11,9 +11,9 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ default (template "directus.fullname" .) .Values.directus.role.name }}
+  name: {{ default (include "directus.fullname" .) .Values.directus.role.name }}
 subjects:
   - kind: ServiceAccount
-    name: {{ default (template "directus.fullname" .) .Values.directus.serviceAccount }}
-    namespace: {{ default (template "directus.fullname" .) .Values.directus.namespace }}
+    name: {{ default (include "directus.fullname" .) .Values.directus.serviceAccount }}
+    namespace: {{ default (include "directus.fullname" .) .Values.directus.namespace }}
 {{- end }}

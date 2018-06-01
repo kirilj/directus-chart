@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  namespace: {{ default (template "directus.fullname" .) .Values.directus.namespace }}
+  namespace: {{ default (include "directus.fullname" .) .Values.directus.namespace }}
   name: {{ template "directus.fullname" . }}
   labels:
     app: {{ template "directus.name" . }}
@@ -20,7 +20,7 @@ spec:
         app: {{ template "directus.name" . }}
         release: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ default (template "directus.fullname" .) .Values.directus.serviceAccount }}
+      serviceAccountName: {{ default (include "directus.fullname" .) .Values.directus.serviceAccount }}
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.directus.image }}
@@ -50,10 +50,10 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: name: {{ default (template "directus.fullname" .) .Values.directus.secret.name }}
+                  name: name: {{ default (include "directus.fullname" .) .Values.directus.secret.name }}
                   key: mysql_password
             - name: MYSQL_ENV_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ default (template "directus.fullname" .) .Values.directus.secret.name }}
+                  name: {{ default (include "directus.fullname" .) .Values.directus.secret.name }}
                   key: mysql_password

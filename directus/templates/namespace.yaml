@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ default (template "directus.fullname" .) .Values.directus.namespace }}
+  name: {{ default (include "directus.fullname" .) .Values.directus.namespace }}
