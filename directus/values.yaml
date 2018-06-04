@@ -14,6 +14,7 @@ directus:
     pass: directus
     host: mysql.mysql.svc.cluster.local
     port: "3306"
+  # storageClass: standard
 
   # Change (probably) required:
   hosts:

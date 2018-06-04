@@ -57,3 +57,10 @@ spec:
                 secretKeyRef:
                   name: {{ default (include "directus.fullname" .) .Values.directus.secret.name }}
                   key: mysql_password
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/storage/uploads
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: {{ template "directus.fullname" . }}

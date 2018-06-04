@@ -15,6 +15,7 @@ directus:
     user: directus
     host: kinchasa-mysql.default.svc.cluster.local
     port: "3306"
+  # storageClass: standard
 
   # Change required:
   hosts:
