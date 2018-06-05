@@ -39,19 +39,12 @@ spec:
           env:
             - name: MYSQL_ENV_MYSQL_DATABASE
               value: {{ .Values.directus.db.name }}
-            - name: MYSQL_USER
-              value: {{ .Values.directus.db.user }}
             - name: MYSQL_ENV_MYSQL_USER
               value: {{ .Values.directus.db.user }}
             - name: MYSQL_PORT_3306_TCP_ADDR
               value: {{ .Values.directus.db.host }}
             - name: MYSQL_PORT_3306_TCP_PORT
               value: {{ .Values.directus.db.port | quote }}
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ default (include "directus.fullname" .) .Values.directus.secret.name }}
-                  key: mysql_password
             - name: MYSQL_ENV_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
